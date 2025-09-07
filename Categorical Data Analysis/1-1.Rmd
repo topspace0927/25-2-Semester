@@ -1,0 +1,185 @@
+---
+title: "1-1"
+output: html_document
+date: "2025-09-01"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 개요
+
+1.  교재는 저거로 나감(범주형 자료분석 개론 3판)
+2.  단 과제 등은 영어로, 시험은 한글로
+3.  선수과목 : 기통2,추정 검정, 회귀분석, 선대,행렬
+4.  R(과제), 시험은 아님
+5.  과제는 3번, 20프로,(교재연습 문제, 해석하는 것을 중점적으로 함) 시험에서 평가하기 어려운 부분을할것
+6.  시험은 수, 월욜을 자유
+7.  수업 마지막에 퀴즈있는데 틀렸다고 감점아님, 발전해보자
+
+## 범주형 자료분석이란?
+
+범주형을 다루는 건 기통에서 잠깐 나오다고 처음 배우는 것
+
+Y가 범주형인 것이 대부분임 이 수업에선
+
+EX 질병유무, 성별, 리스폰스가 ㅇㅇ
+
+X들은 연속형, 범주형 다 있다
+
+그 관계를 알아보는 것
+
+회귀분석 등은 거의다 Y가 연속형이였을 것
+
+기통에서 우리는 데이터 변수 타입을 나눔 양적이다 \~ 질적이다 \~ 등
+
+디스크리트한(이산,연속에 반대내용도 여기서 다룰 것
+
+첫 시간 들어가기 앞서서 통계 정리하겟음!!
+
+Statistics(통계학 정의)
+
+1.  summary of data(요약하고 싶다. 비율이 어케되는지, 비교하고싶기도하고) 이것을 통들어 EDA라고함)
+
+2.  메인은 이것(Inference) 추론을 할것. 데이터가 주어져있다면, 이것을 해야함. Keypoint는 "parameter" p, 세타로 표현함 얘를 알기위해! likelihood 기반한 추론 방식을 많이 이야기 할것이다
+
+3.  Prediction : 케이스의 값을 예측,
+
+    y가 범주형일 때, 예측? 다시 봐야할듯
+
+    classification) 질병, 신체ㅡ 이런걸 가지고 y값을 예측하자! 모델을 알고자한다.
+
+    모델을 알고자하는 녀석이 파라미터가될것이다
+
+    y가 바이놀이라면, 로지스틱.
+
+추론에서 가장 정통은 Frequentist, Bayesian
+
+전자는 모수가 고정, fixed
+
+후자는 모수가 랜덤
+
+우리수업에선 Frequentist, 모수가 파라미터인 걸 할것?
+
+parametric methods는 분포를 가정하는 방법임 -\> 이는 몇개 안되는 모수에 의해서 결정되는 방법임 우리가 일반저긍로 배우는분포는 몇개의 모수만알면됨(평균 분산만 알면되잖아. 이산형도 np만알 면되잖아. 이를 기반으로 ㅊ론하느 방법)
+
+nonparmatic methods는 모수의 제약 없음 더 자유로움 요즘 현대임. (우리수업에선 다루지 않겠다)
+
+우리수업은 Frequentist + probabilty distribution, likelihood ?
+
+-Realtionships Associtations among varibles
+
+변수가 여러개 일때 관계를 알고자 하는 것이
+
+통계에서 좋아나흔것이 correlation, independence,)
+
+이런 것들이 우리의 ?
+
+x와 y사이의 관계를 갖고 얘기를 해보자면, 범주형이라는 타입음
+
+x가 숫자형 or 범주형이고, y도 숫자형이고, 범주형일수있다.
+
+x,y가 숫자혀이면 regression,
+
+x 범주, y가 숫자형(cont)이면 아노바
+
+회귀에서 더비 베리어블은 x가 ??
+
+**우리가할건, y가 범주형, x도 카테코리컬이면? –\> 카이제곱(2장\~ 근데 정규분포가정하에 카이제곱이 나옴,**
+
+등 x성별 y질병유무
+
+**x가 숫자형, y가 범주형일때 –\> logistic regression(4\~5장, 많이나옴) 굿굿임**
+
+### Tean
+
+4장까지는 ㄱㅊ은데 5장부턴 복잡할거임(3\~4장이 핵심임 이거모르면 뒤에 못함 시간 많이 들여라. 자기 힘으로 쓸 줄 알아야함
+
+1.  Introduction (도입)
+
+**Y가 범주형(categorical response)**인 데이터란 무엇인지 정의하고, 이러한 데이터를 수학적으로 다루기 위한 확률분포(probability distributions), 즉 **이항분포(Binomial)**와 **다항분포(Multinomial)**를 배웁니다.
+
+이 분포들의 핵심 **모수(parameter)인 "p"(비율)**를 어떻게 추론하는지 기초를 다집니다.
+
+2.  Analyzing Contingency Tables (분할표 분석)
+
+첫 번째 주요 도구인 **카이제곱 검정(Chi-squared tests)**을 배웁니다.
+
+X와 Y가 모두 범주형일 때, 두 변수 사이에 **연관성(association) 또는 독립성(independence)**이 있는지를 분석하는 방법을 다룹니다. 2장은 의학에서 많이 다룸룸
+
+3.  Generalized Linear Models, GLMs (일반화 선형 모델)
+
+로지스틱 회귀를 포함한 다양한 분석 모델들을 하나로 묶는 강력한 이론적 틀입니다.
+
+Y ≈ g(Xβ)라는 수식이 핵심입니다. Y(반응)의 확률분포, X(예측변수)의 선형 결합, 그리고 이 둘을 연결하는 **연결 함수(link function, g)**라는 세 가지 요소로 모델을 이해하는 방법을 배웁니다.
+
+이론적 깊이를 더하는 중요한 파트입니다.
+
+4.  Logistic Regression (로지스틱 회귀분석)
+
+이 수업의 가장 중요한 파트입니다.
+
+Y가 **두 가지 범주(binary)**일 때 사용하는 대표적인 분석 방법입니다.
+
+GLM의 한 종류로서, **가능도(likelihood)**에 기반해 통계적 추론을 수행합니다. 예측 변수(X)의 효과를 해석하고, 예측 및 모델 선택을 하는 방법을 배웁니다.
+
+```         
+아마 4-1 까지 중간,
+```
+
+결론적으로, 이 수업은 "데이터가 이항/다항분포를 따른다고 가정(Parametric)하고, 우리가 가진 데이터가 나올 가능성(Likelihood)을 최대로 만드는 고정된 모수(Frequentist)를 찾아내는" 방법을 배우게 됩니다.
+
+통계학은 크게 세 가지 목표를 가집니다.
+
+① 데이터 요약 (Summary of data, EDA): 데이터를 정리하고 특징을 파악합니다.
+
+② 추론 (Inference): 이 수업의 핵심입니다. 수집한 데이터(표본)를 가지고 전체 집단의 특성(모수, parameter)이 어떨지 논리적으로 추측하는 과정입니다. 이를 위해 **확률분포(probability distribution)**와 **가능도(likelihood)**라는 도구를 사용합니다.
+
+③ 예측 (Prediction): 만들어진 모델을 사용해 새로운 데이터의 결과를 예측합니다. Y가 범주형일 때는 이를 특별히 **분류(Classification)**라고 부릅니다.
+
+**Y가 숫자일** 때 (Numerical/Continuous):
+
+X도 숫자 → 회귀분석(Regression)
+
+X가 범주 → 분산분석(ANOVA)
+
+------------------------------------------------------------------------
+
+**Y가 범주일** 때 (Categorical):
+
+X가 숫자 → 로지스틱 회귀분석(Logistic Regression)
+
+X도 범주 → 카이제곱 검정(χ² test)
+
+## 1-2
+
+추론이 메인파트이고, 범주형이니, 비율
+
+비율에대한추론, 신뢰구간, 가설검정 조금씩 다른 방법이 있다. 와일드, 라이클리후드 등
+
+5.  Multicategory Logit Models– nominal / ordinal
+
+y의 범주가 3개이상, 6. Loglinear Models for Counts– contingency tables
+
+6장까진 glm이고 y는 독립을 가정해야만 쓸수잇는모델들임 7. Marginal Modeling– Generalized Estimating Equations (GEE)
+
+8.  Random Effects– Generalized Linear Mixed Models (GLMMs
+
+normal approximation
+
+교수 필기 참조
+
+왜 0.5를쓸까? s
+
+score type의 방식
+
+신뢰구간은 귀무가설이 없음
+
+멀 기준으로 표준오차를 결정하나? 파이헷이 들어감
+
+wild vs score는 ?
+
+가설은 스코어, 근데 바꿔서도 하잔슴
+
+교수는 지금 score 타입과 와일드 타입 둘 다 해보고있음 가설검정을. 0.9
